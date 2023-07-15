@@ -1,0 +1,105 @@
+<div class="container">
+
+  <div class="card-container">
+
+    <div #front class="front">
+
+      <div class="image">
+        <img src="https://cdn-icons-png.flaticon.com/512/6404/6404100.png" alt="">
+        <img src="https://1000marcas.net/wp-content/uploads/2019/12/logo-Mastercard.png" alt="">
+      </div>
+      <div  class="card-number-box">{{form.controls["numero"].value  | maskPipe }}</div>
+      <div class="flexbox">
+        <div class="box">
+          <span></span>
+          <div class="card-holder-name">{{form.controls["nombre"].value}}</div>
+        </div>
+        <div class="box">
+          <span>válida Hasta</span>
+          <div class="expiration">
+            <span class="exp-month">{{form.controls["expDateMM"].value}}</span>
+            <span class="exp-year"> / {{form.controls["expDateYY"].value}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div #back class="back">
+      <div class="stripe"></div>
+      <div class="box">
+        <span>{{form.controls["cvv"].value}}</span>
+        <div class="cvv-box"></div>
+        <img src="image/visa.png" alt="">
+      </div>
+    </div>
+
+  </div>
+
+  <form (ngSubmit)="submit()" [formGroup]="form" action="">
+    <div class="inputBox">
+      <span>card number</span>
+      <input   formControlName="numero" type="text" maxlength="16" class="card-number-input">
+      <span  [ngStyle]="{color:color}" *ngIf="validField('numero')" >Este campo es requerido</span>
+      <span  [ngStyle]="{color:color}" *ngIf="form.get('numero')?.hasError('pattern')" >Este campo solo acepta numeros</span>
+      <span  [ngStyle]="{color:color}" *ngIf="form.get('numero')?.value.length < 16 && form.get('numero')?.value.length > 0 && !validField('numero')" >Este campo solo acepta 16 digitos</span>
+
+    </div>
+
+    <div class="inputBox">
+      <span>card holder</span>
+      <input maxlength="20" formControlName="nombre" type="text" class="card-holder-input">
+      <span [ngStyle]="{color:color}" *ngIf="validField('nombre')" >Este Campo es requerido</span>
+      <span [ngStyle]="{color:color}" *ngIf="form.get('nombre')?.hasError('pattern')" >Este Campo solo acpeta letras</span>
+
+    </div>
+    <div class="flexbox">
+      <div class="inputBox">
+        <span>expiration mm</span>
+        <select formControlName="expDateMM" name="" id="" class="month-input">
+          <option value="month" selected disabled>month</option>
+          <option value="01">01</option>
+          <option value="02">02</option>
+          <option value="03">03</option>
+          <option value="04">04</option>
+          <option value="05">05</option>
+          <option value="06">06</option>
+          <option value="07">07</option>
+          <option value="08">08</option>
+          <option value="09">09</option>
+          <option value="10">10</option>
+          <option value="11">11</option>
+          <option value="12">12</option>
+        </select>
+        <span [ngStyle]="{color:color}" *ngIf="validField('expDateMM')" >Este Campo es requerido</span>
+      </div>
+      <div class="inputBox">
+        <span>expiration yy</span>
+        <select formControlName="expDateYY" name="" id="" class="year-input">
+          <option value="year" selected disabled>year</option>
+
+          <option value="22">22</option>
+          <option value="23">23</option>
+          <option value="24">24</option>
+          <option value="25">25</option>
+          <option value="26">26</option>
+          <option value="27">27</option>
+          <option value="28">28</option>
+          <option value="29">29</option>
+
+        </select>
+        <span [ngStyle]="{color:color}" *ngIf="validField('expDateYY')" >Este Campo es requerido</span>
+      </div>
+      <div class="inputBox">
+        <span>cvv</span>
+        <input formControlName="cvv" (blur)="antiRotate()" (focus)="rotate()" type="text" maxlength="3" class="cvv-input">
+        <span [ngStyle]="{color:color}" *ngIf="validField('cvv')" >Este Campo es requerido</span>
+      </div>
+    </div>
+    <input type="submit" value="submit" class="submit-btn" (click)="mostrarAnuncio()" >
+    <button type="button" (click)="Cancelar()" class="submit-btn">Cancelar</button>
+
+  </form>
+
+</div>
+
+

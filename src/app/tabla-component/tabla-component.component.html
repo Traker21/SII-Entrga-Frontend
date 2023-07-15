@@ -1,0 +1,30 @@
+<table class="flatTable">
+  <tr class="titleTr">
+    <td class="titleTd">Tarjetas Registradas</td>
+    <td colspan="4"></td>
+
+
+  </tr>
+  <tr class="headingTr">
+    <td>Referencia</td>
+    <td>Nonmbre</td>
+    <td>Vencimiento</td>
+    <td>Eliminar</td>
+
+  </tr>
+
+  <tr *ngFor="let item of dataList">
+    <td>{{item.numero | creditNPipe | maskPipe }}</td>
+    <td>{{item.nombre}}</td>
+    <td>{{item.vencimiento | datePipe}}</td>
+    <td><button  (click)="delete(item.numero)" class="boton"></button></td>
+  </tr>
+
+</table>
+
+<div id="sForm" class="sForm sFormPadding">
+  <span class="button close"><img src="https://i.imgur.com/nnzONel.png" alt="X" class="" /></span>
+  <h2 class="title">Add a New Record</h2>
+</div>
+
+<link href='https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900' rel='stylesheet' type='text/css'>
